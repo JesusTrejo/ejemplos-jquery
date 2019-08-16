@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Common jQuery Methods</title>
+
+    <style>
+        .correct{
+            color: green;
+        }
+
+        .wrong{
+            color : red;
+            background-color: pink;
+        }
+
+        .done{
+            color: gray;
+            text-decoration: line-through;
+        }
+    </style>
+</head>
+<body>
+    <h1>Common jQuery Methods</h1>
+    <ul id="common-methods">
+        <li>val()</li>
+        <li>text()</li>
+        <li>attr()</li>
+        <li>html()</li>
+        <li>addClass()</li>
+        <li>removeClass()</li>
+        <li>toggleClass()</li>
+    </ul>
+    <input type="text" name="text" id="text" placeholder="Write something">
+    <img src="./cat.jpg" alt="Derpy Cat">
+
+    <h2>Tasks List</h2>
+    <ul id="tasks">
+        <li>Go for a run</li>
+        <li>Do homework</li>
+        <li>Buy a notebook</li>
+    </ul>
+
+    
+    <script type="text/javascript" src="jquery-3.4.1.min.js"></script>
+    <script>
+        // Sets the header text
+        $("h1").text("Topkek");
+
+        // Adds new elements to the current list
+        var current = $("#common-methods").html();
+        $("#common-methods").html(current + "<li>New element</li><li>Another new element</li>");
+
+        // Gets input value
+        var val = $("input").val();
+        console.log(val);
+
+        // Sets the input field value
+        $("input").val("Hello world!");
+
+        // Changes the image attributes src and width
+        $("img").attr("src", "./cat2.jpg");
+        $("img").attr("width", "200");
+
+        // Marks all tasks as correct
+        $("#tasks").addClass("correct");
+
+        // Toggles all tasks as wrong
+        $("#tasks").toggleClass("wrong");
+        // Toggles all tasks as wrong - again
+        $("#tasks").toggleClass("wrong");
+
+        // Marks the first task as done
+        $("#tasks li:first").toggleClass("done");
+    </script>
+</body>
+</html>
