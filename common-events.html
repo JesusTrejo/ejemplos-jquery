@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Common jQuery Events</h1>
+
+    <input id="something" type="text" placeholder="Write something">
+
+    <button>Don't click me</button>
+    <button>Seriously don't click me!</button>
+    <button>Ok, click me</button>
+
+    <br>
+    <h2>Example on()</h2>
+    <input id="add" type="text" placeholder="Add something">
+    <ul>
+        <li>One</li>
+        <li>Two</li>
+        <li>Three</li>
+    </ul>
+
+    
+
+    <script type="text/javascript" src="jquery-3.4.1.min.js"></script>
+
+    <script type="text/javascript">
+        $("button").click(function(event){
+            console.log($(this).text()); // To select our button we use $(this)
+        });
+
+        $("#something").keypress(function(event){
+            console.log("You pressed " + event.key);
+
+            if(event.key == "Enter")
+                console.log("You can go on!");
+        });
+
+        $("#add").on("keypress", function(event){
+            if(event.key == "Enter")
+            {
+                console.log("Adding " + $(this).val());
+                $("ul").append("<li>" + $(this).val() + "</li>");
+                $(this).val("");
+            }  
+        });
+
+        $("ul").on("click", "li", function(event){
+            console.log($(this).text());
+        });
+
+    </script>
+</body>
+</html>
