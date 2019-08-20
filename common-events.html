@@ -53,6 +53,14 @@
             console.log($(this).text());
         });
 
+        $("button").on("mouseenter", function(){
+            $(this).css("background-color", "pink");
+        });
+
+        $("button").on("mouseout", function(){
+            $(this).css("background-color", "white");
+        });
+
     </script>
 </body>
 </html>
