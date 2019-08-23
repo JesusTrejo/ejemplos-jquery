@@ -25,7 +25,8 @@
                     url: "https://uinames.com/api/?amount=" + $("#input-number").val() + "&region=mexico",
                     success : function(data){
                         //console.log(data);
-                        if($("#input-number").val() == 1)
+                        //TODO: Check why this line doesn't works
+                        if(parseInt($("#input-number").val()) == 1)
                         {
                             $("#users").append("<li>" + data.name + " " + data.surname + "</li>");
                         }else
