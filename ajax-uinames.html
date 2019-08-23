@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>UI Names Example</title>
+</head>
+<body>
+    <h1>UI Names Example</h1>
+
+    <h2>Users</h2>
+    <input id="input-number" placeholder="# of users">
+    <ul id="users">
+    </ul>
+
+    <script type="text/javascript" src="jquery-3.4.1.min.js"></script>
+    <script>
+        $("#input-number").on("keypress", function(event){
+            if(event.key == "Enter")
+            {
+                $("ul").html("");
+                jQuery.ajax({
+                    method : "GET",
+                    url: "https://uinames.com/api/?amount=" + $("#input-number").val() + "&region=mexico",
+                    success : function(data){
+                        //console.log(data);
+                        if($("#input-number").val() == 1)
+                        {
+                            $("#users").append("<li>" + data.name + " " + data.surname + "</li>");
+                        }else
+                        {
+                            var i, user;
+                            for(i=0; i<data.length; i++)
+                            {
+                                user = data[i];
+                                $("#users").append("<li>" + user.name + " " + user.surname + "</li>");
+                            }
+                        }
+                        
+                    },
+                    error: function(data)
+                    {
+                        console.log("There was an error");
+                        console.log(data);
+                    }
+                })
+                $(this).val("");
+            }
+        })
+        
+    </script>
+</body>
+</html>
