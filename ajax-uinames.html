@@ -5,30 +5,80 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>UI Names Example</title>
+    <style>
+        .error{
+            color: red;
+        }
+    </style>
 </head>
 <body>
     <h1>UI Names Example</h1>
 
     <h2>Users</h2>
+    <div>
+        <label>Male</label>
+        <input type="radio" name="gender" value="male">
+        <label>Female</label>
+        <input type="radio" name="gender" value="female">
+        <label>Random</label>
+        <input type="radio" name="gender" value="random">
+    </div>
+    <div>
+        <label for="region">Region</label>
+        <select name="region" id="region">
+            <option>None</option>
+            <option>France</option>
+            <option>Germany</option>
+            <option>India</option>
+            <option>Russia</option>
+            <option>Mexico</option>
+            <option>Random</option>
+        </select>
+    </div>
+    <div>
+        <label>Data extra</label>
+        <input type="checkbox" id="extra">
+    </div>
     <input id="input-number" placeholder="# of users">
     <ul id="users">
     </ul>
+    <p class="error"></p>
 
     <script type="text/javascript" src="jquery-3.4.1.min.js"></script>
     <script>
         $("#input-number").on("keypress", function(event){
             if(event.key == "Enter")
             {
+                var user_num = $("#input-number").val();
+                var gender = $("input[name=gender]:checked").val();
+                var region = $("#region option:selected").text();
+                var extra = $("#extra").prop("checked");
+
+                //debugger;
+
+                var urlString = "https://uinames.com/api/?amount=" + user_num 
+                    + "&gender=" + gender 
+                    + "&region=" + region;
+
+                if(extra)
+                    urlString += "&ext";
+
+                //TODO: Display age, e-mail and photo
+                $(this).val("");
+                $(".error").text("");
+
                 $("ul").html("");
                 jQuery.ajax({
                     method : "GET",
-                    url: "https://uinames.com/api/?amount=" + $("#input-number").val() + "&region=mexico",
+                    url: urlString,
                     success : function(data){
-                        //console.log(data);
-                        //TODO: Check why this line doesn't works
-                        if(parseInt($("#input-number").val()) == 1)
+                        if(user_num == 1)
                         {
-                            $("#users").append("<li>" + data.name + " " + data.surname + "</li>");
+                            console.log(extra);
+                            if(extra == false)
+                                $("#users").append("<li>" + data.name + " " + data.surname + "</li>");
+                            else
+                                $("#users").append("<li>" + data.name + " " + data.surname + "<img src='" + data.photo + "'></li>");
                         }else
                         {
                             var i, user;
@@ -44,9 +94,9 @@
                     {
                         console.log("There was an error");
                         console.log(data);
+                        $(".error").text(data.responseJSON.error);
                     }
-                })
-                $(this).val("");
+                });
             }
         })
         
